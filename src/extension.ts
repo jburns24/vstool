@@ -5,7 +5,7 @@ import * as vscode from 'vscode';
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	
+
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "vstool" is now active!');
@@ -16,10 +16,19 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('vstool.helloWorld', () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from VSTool!');
+		vscode.window.showInformationMessage('Hello from VSTool!');
 	});
 
 	context.subscriptions.push(disposable);
+
+	context.subscriptions.push(vscode.commands.registerCommand('vstool.getResponse', async () => {
+		let answer = await vscode.window.showInformationMessage('How was today?', 'Good?', 'Bad?');
+		if (answer === 'Good?') {
+			vscode.window.showInformationMessage('Fucking crush it!');
+		} else {
+			vscode.window.showInformationMessage('Stick your chin up');
+		}
+	}));
 }
 
 // this method is called when your extension is deactivated
